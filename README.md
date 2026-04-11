@@ -1,41 +1,102 @@
-# Smart Expense Splitter
+# ⚡ SplitzAI: Smart Expense Splitter
 
-An intuitive, simple web application for managing shared expenses, built as part of the Neev AI Internship Assignment.
+**Pure Vanilla JS. No Frameworks. Pure Power.**
 
-## Features
+SplitzAI is a premium, AI-powered shared expense tracker and debt simplifier designed for modern groups. Built as a high-performance, framework-less web application, it offers a seamless way to manage group finances with a focus on "Who Owes Whom" simplification.
 
-- **Group Management:** Create a group and flexibly manage members.
-- **Smart Expense Tracking:** Easily add expenses, specify who paid, and select who to split it with.
-- **Debt Simplification:** The app uses an intelligent algorithm to automatically calculate "Who Owes Whom" in the most simplified manner (minimizing total transactions).
-- **AI-Powered Insights:**
-  - **Auto-Categorization:** Uses a Local NLP matcher to automatically categorize expenses (Food, Transportation, Accommodation, etc.) based on the description text.
-  - **Spending Analytics:** Dynamically generates summaries regarding categorical spending and pinpoints the most prominent spenders.
-- **Responsive UI:** A stunning, fully responsive layout built with glassmorphism, native dark-mode, and modern aesthetics. Locally persists state via `localStorage`.
+---
 
-## Setup Instructions
+## 🌟 Key Features
 
-Since this is built with entirely native, framework-less web technologies (Vanilla HTML, CSS, JavaScript) for maximum performance and minimum footprint:
+### 🏢 Multi-Group Ecosystem
+- **Workspaces**: Create multiple independent groups (e.g., "Trip to Goa", "Flatmates", "Office Lunch") and switch between them instantly.
+- **Persistent Storage**: All groups are locally persisted to `localStorage`, ensuring zero data loss and offline-first capability.
 
-1. Clone or download the repository.
-2. Simply open `index.html` in any web browser.
-3. *No Node.js, `npm install`, or complex build steps are required!*
+### 🤖 AI Smart Chat (NLP Parsing)
+- **Natural Language Parsing**: Add expenses by simply typing: *"Alice paid ₹1500 for a taxi for Bob and Charlie."*
+- **Intelligent Extraction**: The engine automatically identifies the **amount**, the **payer**, the **description**, and the **participants**.
 
-*(Note: Data is saved to your browser's local storage automatically so you don't lose data upon refresh).*
+### 🧪 Advanced Splitting Methods
+- **Equally**: The standard way—split the bill across selected members.
+- **Exact Amounts**: Specify exactly how much each person owes.
+- **Percentages (%)**: Split based on percentages that must sum to 100%.
+- **Shares**: Assign different weights (e.g., "Alice: 2 parts, Bob: 1 part").
 
-## Architecture Details
+### 📉 Intelligent Debt Simplification
+- **Greedy Optimization**: The engine uses a net-balance algorithm to minimize the total number of transactions required to settle up.
+- **Settle Up**: One-click settlement that marks debts as paid and updates the shared ledger.
 
-- **`index.html`**: The UI skeleton. Uses semantic tags to layout the Dashboard Grid, Header, and Sidebar. Incorporates FontAwesome for iconography and Google Fonts.
-- **`style.css`**: Controls all visuals. Utilizes CSS variables for quick theme adjustment and relies heavily on Flexbox and CSS Grid for layout management.
-- **`app.js`**: Contains the state management array, EventListeners, Mock AI/Analytics Logic, and the Debt Simplifier Engine.
+### 📊 AI Insights & Categorization
+- **Auto-Categorize**: Expenses are automatically tagged (Food, Transport, Accommodation, etc.) using a local keyword-matching NLP engine.
+- **Spending Analytics**: Get real-time insights into your group's largest spending categories.
 
-### Core Algorithm (Debt Simplifier Engine)
+### 🎨 Premium UI/UX
+- **Glassmorphism Design**: A stunning, modern interface with blurred backgrounds, vibrant gradients, and smooth transitions.
+- **Native Dark Mode**: Full support for light and dark themes with a persistent preference toggle.
+- **Dynamic Avatars**: Unique identifiers for every member using the DiceBear Notionsists API.
 
-The debt simplification works by:
-1. Turning all transactions into a net balances array for each user.
-2. Grouping users into Debtors (negative balance) and Creditors (positive balance).
-3. Using a greedy algorithm that pairs the largest debtor with the largest creditor iteratively to clear balances with the minimal amount of edges (settlement transactions).
+---
 
-## Deployment
+## 🚀 Setup Instructions
 
-Deploying is extremely easy since this is a static site:
-1. **Vercel / Netlify**: Simply link your Github Repository and select "Vanilla JS" or explicitly define the build command as empty and publish directory as the root folder.
+Since this is built with **zero dependencies**, setting it up is instant:
+
+1. **Clone the Project**:
+   ```bash
+   git clone https://github.com/username/smart-expense-splitter.git
+   ```
+2. **Launch**:
+   - Simply double-click `index.html` to open it in any modern browser.
+   - **No** `npm install`, **No** Node.js, and **No** build steps required.
+
+---
+
+## 🏗️ Architecture Details
+
+### 1. State Management (`app.js`)
+The application follows a reactive state-management pattern:
+- **`systemState`**: The global object containing all groups and the active group ID.
+- **`state`**: A pointer to the currently active group for fast UI updates.
+- **LocalStorage Sync**: Every modification triggers a `saveData()` call that serializes the state to the browser's storage.
+
+### 2. UI Layer (`index.html` & `style.css`)
+- **Semantic HTML5**: Uses `aside`, `main`, `section`, and `header` for a robust, SEO-friendly structure.
+- **CSS Variables**: A centralized color palette and spacing system allow for instant theme switching and maintainability.
+- **Flex/Grid Layout**: A responsive main grid that adjusts from desktop sidebars to mobile-optimized stacks.
+
+### 3. Logic Engine
+- **Event-Driven Architecture**: DOM listeners handle user interactions and feed data into the logic functions.
+- **Validation Layer**: Ensures inputs (amounts, names) are sanitized and logically sound before updating the state.
+
+---
+
+## 🛠️ Feature Implementation (Technical)
+
+### Debt Simplifier Algorithm
+The algorithm works in three phases:
+1. **Net Balance Calculation**: Iterates through all expenses to find the net "Credit" or "Debit" for each user.
+2. **Sorting**: Separates users into two arrays: `creditors` (positive balance) and `debtors` (negative balance), sorted by magnitude.
+3. **Greedy Settlement**: Iteratively pairs the largest creditor with the largest debtor to clear balances with the minimum number of edges (transactions).
+
+### NLP Engine
+The "AI Chat" uses a combination of:
+- **Regex Patterns**: To extract currency patterns (`₹1500`, `500.25`).
+- **Keyword Matching**: To identify members and categories from the input string.
+- **Fuzzy Mapping**: To match description keywords (e.g., "taxi" -> "Transportation").
+
+### Tech Stack
+- **Languages**: HTML5, CSS3, JavaScript (ES6+).
+- **Iconography**: [FontAwesome 6.4+](https://fontawesome.com/).
+- **Typography**: [Google Fonts (Nunito & Outfit)](https://fonts.google.com/).
+- **Avatars**: [DiceBear API](https://api.dicebear.com/).
+
+---
+
+## 🌍 Deployment
+
+You can host this project for free on any static hosting provider:
+- **Vercel / Netlify**: Link your GitHub repo; use the root directory as the build output.
+- **GitHub Pages**: Simply enable it in your repository settings under "Pages".
+
+---
+*Created as part of the Neev AI Internship Assignment.*
