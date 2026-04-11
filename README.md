@@ -4,6 +4,8 @@
 
 **Pure Vanilla JS. No Frameworks. Pure Power.**
 
+[🚀 Live Demo: SplitzAI on Vercel](https://splitzai.vercel.app/)
+
 SplitzAI is a premium, AI-powered shared expense tracker and debt simplifier designed for modern groups. Built as a high-performance, framework-less web application, it offers a seamless way to manage group finances with a focus on "Who Owes Whom" simplification.
 
 ---
@@ -45,7 +47,7 @@ Since this is built with **zero dependencies**, setting it up is instant:
 
 1. **Clone the Project**:
    ```bash
-   git clone https://github.com/username/smart-expense-splitter.git
+   git clone https://github.com/BHANUPRASAD200/SplitzAI.git
    ```
 2. **Launch**:
    - Simply double-click `index.html` to open it in any modern browser.
@@ -94,10 +96,10 @@ The "AI Chat" uses a combination of:
 
 ---
 
-## Deployment
+## 🌍 Deployment
 
-You can host this project for free on any static hosting provider:
-- **Vercel / Netlify**: Link your GitHub repo; use the root directory as the build output.
+The project is currently live and can be accessed at:
+- **Vercel**: [splitzai.vercel.app](https://splitzai.vercel.app/) (Primary)
 - **GitHub Pages**: Simply enable it in your repository settings under "Pages".
 
 ---
