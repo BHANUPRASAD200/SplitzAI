@@ -1,43 +1,45 @@
 # ⚡ SplitzAI: Smart Expense Splitter
 
+![SplitzAI Dashboard](SplitzAI.png)
+
 **Pure Vanilla JS. No Frameworks. Pure Power.**
 
 SplitzAI is a premium, AI-powered shared expense tracker and debt simplifier designed for modern groups. Built as a high-performance, framework-less web application, it offers a seamless way to manage group finances with a focus on "Who Owes Whom" simplification.
 
 ---
 
-## 🌟 Key Features
+## Key Features
 
-### 🏢 Multi-Group Ecosystem
+### Multi-Group Ecosystem
 - **Workspaces**: Create multiple independent groups (e.g., "Trip to Goa", "Flatmates", "Office Lunch") and switch between them instantly.
 - **Persistent Storage**: All groups are locally persisted to `localStorage`, ensuring zero data loss and offline-first capability.
 
-### 🤖 AI Smart Chat (NLP Parsing)
+### AI Smart Chat (NLP Parsing)
 - **Natural Language Parsing**: Add expenses by simply typing: *"Alice paid ₹1500 for a taxi for Bob and Charlie."*
 - **Intelligent Extraction**: The engine automatically identifies the **amount**, the **payer**, the **description**, and the **participants**.
 
-### 🧪 Advanced Splitting Methods
+### Advanced Splitting Methods
 - **Equally**: The standard way—split the bill across selected members.
 - **Exact Amounts**: Specify exactly how much each person owes.
 - **Percentages (%)**: Split based on percentages that must sum to 100%.
 - **Shares**: Assign different weights (e.g., "Alice: 2 parts, Bob: 1 part").
 
-### 📉 Intelligent Debt Simplification
+### Intelligent Debt Simplification
 - **Greedy Optimization**: The engine uses a net-balance algorithm to minimize the total number of transactions required to settle up.
 - **Settle Up**: One-click settlement that marks debts as paid and updates the shared ledger.
 
-### 📊 AI Insights & Categorization
+### AI Insights & Categorization
 - **Auto-Categorize**: Expenses are automatically tagged (Food, Transport, Accommodation, etc.) using a local keyword-matching NLP engine.
 - **Spending Analytics**: Get real-time insights into your group's largest spending categories.
 
-### 🎨 Premium UI/UX
+### Premium UI/UX
 - **Glassmorphism Design**: A stunning, modern interface with blurred backgrounds, vibrant gradients, and smooth transitions.
 - **Native Dark Mode**: Full support for light and dark themes with a persistent preference toggle.
 - **Dynamic Avatars**: Unique identifiers for every member using the DiceBear Notionsists API.
 
 ---
 
-## 🚀 Setup Instructions
+## Setup Instructions
 
 Since this is built with **zero dependencies**, setting it up is instant:
 
@@ -51,7 +53,7 @@ Since this is built with **zero dependencies**, setting it up is instant:
 
 ---
 
-## 🏗️ Architecture Details
+## Architecture Details
 
 ### 1. State Management (`app.js`)
 The application follows a reactive state-management pattern:
@@ -70,7 +72,7 @@ The application follows a reactive state-management pattern:
 
 ---
 
-## 🛠️ Feature Implementation (Technical)
+## Feature Implementation (Technical)
 
 ### Debt Simplifier Algorithm
 The algorithm works in three phases:
@@ -92,7 +94,7 @@ The "AI Chat" uses a combination of:
 
 ---
 
-## 🌍 Deployment
+## Deployment
 
 You can host this project for free on any static hosting provider:
 - **Vercel / Netlify**: Link your GitHub repo; use the root directory as the build output.
