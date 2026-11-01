@@ -1,106 +1,103 @@
-# ⚡ SplitzAI: Smart Expense Splitter
+# ⚡ SplitzAI: Next-Gen Shared Expense Engine & FinTech Workspace
 
 ![SplitzAI Dashboard](SplitzAI.png)
 
-**Pure Vanilla JS. No Frameworks. Pure Power.**
+> **Pure Vanilla JS. Zero Frameworks. Intense FinTech Design. Maximum Performance.**
 
 [🚀 Live Demo: SplitzAI on Vercel](https://splitzai.vercel.app/)
 
-SplitzAI is a premium, AI-powered shared expense tracker and debt simplifier designed for modern groups. Built as a high-performance, framework-less web application, it offers a seamless way to manage group finances with a focus on "Who Owes Whom" simplification.
+SplitzAI is a hyper-polished, AI-powered shared expense tracker, debt simplifier, and multi-currency settlement engine. Designed with an **intense modern FinTech aesthetic** (Obsidian dark mode, mesh glowing HUDs, micro-interactions, and glassmorphism), it transforms group financial management into an effortless, intelligent experience.
 
 ---
 
-## Key Features
+## 🌟 What's New in SplitzAI v2.0 PRO
 
-### Multi-Group Ecosystem
-- **Workspaces**: Create multiple independent groups (e.g., "Trip to Goa", "Flatmates", "Office Lunch") and switch between them instantly.
-- **Persistent Storage**: All groups are locally persisted to `localStorage`, ensuring zero data loss and offline-first capability.
+### 1. 🎛️ Futuristic Finance HUD (Heads-Up Display)
+- **Ambient Mesh Glow & Real-Time Stats**: Displays total workspace expenditure, per-person average breakdowns, active unsettled debt, settled totals, and top spending categories.
+- **Dynamic LED Indicators**: Real-time status indicators and active ledger signals.
 
-### AI Smart Chat (NLP Parsing)
-- **Natural Language Parsing**: Add expenses by simply typing: *"Alice paid ₹1500 for a taxi for Bob and Charlie."*
-- **Intelligent Extraction**: The engine automatically identifies the **amount**, the **payer**, the **description**, and the **participants**.
+### 2. 📷 AI Receipt OCR Vision Scanner
+- **Bill & Receipt Scanning**: Upload any receipt image or test with pre-configured instant sample bills (Bistro Dinner, Airport Cab, Luxury Resort).
+- **Animated Laser Scanning Beam**: High-tech visual laser scan simulation with item, date, and amount extraction.
+- **One-Click Form Autofill**: Extracts merchant title, total bill, category, and date directly into the Add Expense modal.
 
-### Advanced Splitting Methods
-- **Equally**: The standard way—split the bill across selected members.
-- **Exact Amounts**: Specify exactly how much each person owes.
-- **Percentages (%)**: Split based on percentages that must sum to 100%.
-- **Shares**: Assign different weights (e.g., "Alice: 2 parts, Bob: 1 part").
+### 3. 🤖 Enhanced Natural Language (NLP) Engine
+- **Conversational Bill Entry**: Enter transactions in plain English:
+  - *"Alice paid ₹1500 for dinner split with Bob and Charlie"*
+  - *"Bob paid $45 for Uber taxi"*
+  - *"Charlie paid 3000 for Airbnb stay"*
+- **Smart Entity Extraction**: Automatically extracts payer, exact amount, currency symbol, participants, and categorizes the expense into Food, Travel, Stay, Fun, Shopping, or Other.
+- **Quick Prompt Chips**: Clickable suggestion chips for fast instant entry.
 
-### Intelligent Debt Simplification
-- **Greedy Optimization**: The engine uses a net-balance algorithm to minimize the total number of transactions required to settle up.
-- **Settle Up**: One-click settlement that marks debts as paid and updates the shared ledger.
+### 4. 💱 Multi-Currency Settlement Engine
+- **Global Currency Switcher**: Switch the entire workspace between **₹ INR**, **$ USD**, **€ EUR**, **£ GBP**, **د.إ AED**, and **¥ JPY**.
+- **Real-Time Currency Conversion**: Seamlessly converts multi-currency expenses into the active group base currency.
 
-### AI Insights & Categorization
-- **Auto-Categorize**: Expenses are automatically tagged (Food, Transport, Accommodation, etc.) using a local keyword-matching NLP engine.
-- **Spending Analytics**: Get real-time insights into your group's largest spending categories.
+### 5. 📱 Instant UPI & QR Code Settlement Engine
+- **Direct QR Generation**: Generates an offline high-contrast SVG QR Code when settling any balance.
+- **One-Click Copy UPI ID**: Compatible with GPay, PhonePe, Paytm, or any standard banking application.
+- **Celebration Engine**: Fires a 60fps HTML5 Canvas confetti explosion when debts are settled!
 
-### Premium UI/UX
-- **Glassmorphism Design**: A stunning, modern interface with blurred backgrounds, vibrant gradients, and smooth transitions.
-- **Native Dark Mode**: Full support for light and dark themes with a persistent preference toggle.
-- **Dynamic Avatars**: Unique identifiers for every member using the DiceBear Notionsists API.
+### 6. 📊 Visual Spending Breakdown & Analytics
+- **Category Progress Meters**: Animated multi-color progress bars showing percentage and totals across categories.
+- **Member Contribution Share**: Visualizes who has funded what proportion of the group's total spending.
+- **AI Financial Intelligence Advice**: Highlights the highest spending member, dominant category, and cost efficiency.
+
+### 7. 🔍 Instant Search & Category Filter System
+- **Real-Time Fuzzy Search**: Filter expenses instantly by title, payer, or category tag.
+- **Category Filter Pills**: Quick filter tabs for All, Food, Travel, Stay, Fun, Shopping, and Settled payments.
+
+### 8. 📤 Export, Backup & Share Hub
+- **WhatsApp / Telegram Summary**: Generate cleanly formatted text reports with emojis ready to be shared with group members.
+- **CSV Ledger Export**: Export Excel-ready `.csv` spreadsheets.
+- **JSON Backup & Restore**: Download complete ecosystem backups or restore workspaces across devices.
+
+### 9. 🎨 Intense Modern FinTech UI/UX
+- **Deep Obsidian & Glassmorphism Design**: High-contrast dark mode with glowing teal, emerald, and AI fuchsia highlights, plus a clean light mode toggle.
+- **Mobile Drawer Navigation**: Fully responsive on screens from 320px mobile phones to 4K desktop command centers.
+- **Custom Toast & Dialog System**: Replaces intrusive browser alerts with non-blocking glass toasts and custom confirmation modals.
 
 ---
 
-## Setup Instructions
+## 🚀 Instant Setup Instructions
 
-Since this is built with **zero dependencies**, setting it up is instant:
+Zero build steps, zero node dependencies, zero configuration:
 
-1. **Clone the Project**:
+1. **Clone the Repository**:
    ```bash
    git clone https://github.com/BHANUPRASAD200/SplitzAI.git
    ```
-2. **Launch**:
-   - Simply double-click `index.html` to open it in any modern browser.
-   - **No** `npm install`, **No** Node.js, and **No** build steps required.
+2. **Launch in Browser**:
+   - Double-click `index.html` to open it in any browser (Chrome, Edge, Safari, Firefox).
+   - Alternatively, serve locally using Python:
+     ```bash
+     python -m http.server 3000
+     ```
 
 ---
 
-## Architecture Details
+## 📐 Algorithmic Architecture
 
-### 1. State Management (`app.js`)
-The application follows a reactive state-management pattern:
-- **`systemState`**: The global object containing all groups and the active group ID.
-- **`state`**: A pointer to the currently active group for fast UI updates.
-- **LocalStorage Sync**: Every modification triggers a `saveData()` call that serializes the state to the browser's storage.
-
-### 2. UI Layer (`index.html` & `style.css`)
-- **Semantic HTML5**: Uses `aside`, `main`, `section`, and `header` for a robust, SEO-friendly structure.
-- **CSS Variables**: A centralized color palette and spacing system allow for instant theme switching and maintainability.
-- **Flex/Grid Layout**: A responsive main grid that adjusts from desktop sidebars to mobile-optimized stacks.
-
-### 3. Logic Engine
-- **Event-Driven Architecture**: DOM listeners handle user interactions and feed data into the logic functions.
-- **Validation Layer**: Ensures inputs (amounts, names) are sanitized and logically sound before updating the state.
+### Greedy Debt Simplification
+SplitzAI solves the N-party debt minimization problem:
+1. **Net Balance Vector**:
+   $$\text{Balance}_i = \sum \text{Paid}_i - \sum \text{Owed}_i$$
+2. **Bipartite Partitioning**: Divides users into sorted vectors:
+   - $\text{Debtors} = \{u \mid \text{Balance}_u < 0\}$ (ascending)
+   - $\text{Creditors} = \{v \mid \text{Balance}_v > 0\}$ (descending)
+3. **Greedy Matching**: Iteratively settles $\min(|\text{Debtor}|, \text{Creditor}|)$, reducing transaction edges from $O(N^2)$ to at most $O(N - 1)$.
 
 ---
 
-## Feature Implementation (Technical)
-
-### Debt Simplifier Algorithm
-The algorithm works in three phases:
-1. **Net Balance Calculation**: Iterates through all expenses to find the net "Credit" or "Debit" for each user.
-2. **Sorting**: Separates users into two arrays: `creditors` (positive balance) and `debtors` (negative balance), sorted by magnitude.
-3. **Greedy Settlement**: Iteratively pairs the largest creditor with the largest debtor to clear balances with the minimum number of edges (transactions).
-
-### NLP Engine
-The "AI Chat" uses a combination of:
-- **Regex Patterns**: To extract currency patterns (`₹1500`, `500.25`).
-- **Keyword Matching**: To identify members and categories from the input string.
-- **Fuzzy Mapping**: To match description keywords (e.g., "taxi" -> "Transportation").
-
-### Tech Stack
-- **Languages**: HTML5, CSS3, JavaScript (ES6+).
-- **Iconography**: [FontAwesome 6.4+](https://fontawesome.com/).
-- **Typography**: [Google Fonts (Nunito & Outfit)](https://fonts.google.com/).
-- **Avatars**: [DiceBear API](https://api.dicebear.com/).
+## 🛠️ Tech Stack
+- **Core**: Vanilla ECMAScript (ES6+), HTML5 Semantic Architecture, CSS3 Custom Properties.
+- **Typography**: Plus Jakarta Sans, Outfit, JetBrains Mono.
+- **Icons**: FontAwesome 6.4+.
+- **Avatars**: DiceBear Notionists API.
+- **Graphics**: HTML5 Canvas Particle Engine, Pure SVG QR Vector Generator.
 
 ---
 
 ## 🌍 Deployment
-
-The project is currently live and can be accessed at:
-- **Vercel**: [splitzai.vercel.app](https://splitzai.vercel.app/) (Primary)
-- **GitHub Pages**: Simply enable it in your repository settings under "Pages".
-
----
-*Created as part of the Neev AI Internship Assignment.*
+- **Vercel**: [splitzai.vercel.app](https://splitzai.vercel.app/)
+- **GitHub Pages**: Supported out of the box with zero build steps.

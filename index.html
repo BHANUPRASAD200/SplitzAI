@@ -1,161 +1,350 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SplitzAI</title>
-    <meta name="description" content="AI-powered shared expense tracker and debt simplifier.">
+    <title>SplitzAI ⚡ Next-Gen Shared Expense Engine</title>
+    <meta name="description" content="AI-powered shared expense tracker, debt simplifier, receipt scanner, and multi-currency settlement suite.">
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="app-container">
+    <div class="app-layout">
+        <!-- Mobile Sidebar Backdrop Overlay -->
+        <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
         <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="brand">
-                <i class="fa-solid fa-bolt-lightning text-accent"></i>
-                <h1 class="brand-name">SplitzAI</h1>
+        <aside class="sidebar" id="app-sidebar">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <div class="brand-glow-icon">
+                        <i class="fa-solid fa-bolt-lightning"></i>
+                    </div>
+                    <div>
+                        <h1 class="brand-name">Splitz<span class="text-accent">AI</span></h1>
+                        <span class="brand-tag">v2.0 PRO</span>
+                    </div>
+                </div>
+                <button class="btn-icon mobile-sidebar-close" id="btn-close-sidebar" aria-label="Close Sidebar">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
             </div>
 
-            <div class="groups-workspace">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 0.75rem;">
-                    <h2 class="section-heading" style="margin:0">Groups</h2>
-                    <button class="btn-icon" id="btn-add-group" title="Create New Group"><i class="fa-solid fa-folder-plus"></i></button>
+            <!-- Workspace Groups Section -->
+            <div class="sidebar-section groups-workspace">
+                <div class="section-header">
+                    <span class="section-title"><i class="fa-solid fa-layer-group"></i> Workspaces</span>
+                    <button class="btn-action-sm" id="btn-add-group" title="New Group">
+                        <i class="fa-solid fa-plus"></i> New
+                    </button>
                 </div>
-                <div id="groups-list" class="groups-list">
+                <div id="groups-list" class="groups-list custom-scrollbar">
                     <!-- Groups injected by JS -->
                 </div>
             </div>
 
-            <div class="group-section" style="border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
-                <h2 class="section-heading">Current Group</h2>
-                <div class="input-group">
-                    <input type="text" id="group-name-input" placeholder="Enter group name...">
+            <!-- Current Workspace Quick Settings -->
+            <div class="sidebar-section current-group-box">
+                <div class="section-header">
+                    <span class="section-title"><i class="fa-solid fa-pen-nib"></i> Workspace Name</span>
+                </div>
+                <div class="input-with-icon">
+                    <i class="fa-regular fa-folder-open"></i>
+                    <input type="text" id="group-name-input" placeholder="Workspace name..." maxlength="30">
                 </div>
             </div>
 
-            <div class="members-section">
-                <h2 class="section-heading">
-                    Members <span id="member-count" class="badge">3</span>
-                </h2>
-                <ul id="members-list" class="members-list">
+            <!-- Members Section -->
+            <div class="sidebar-section members-workspace">
+                <div class="section-header">
+                    <span class="section-title">
+                        <i class="fa-solid fa-user-group"></i> Members
+                        <span id="member-count" class="badge-count">0</span>
+                    </span>
+                    <span class="section-hint">Click member to filter</span>
+                </div>
+                <ul id="members-list" class="members-list custom-scrollbar">
                     <!-- Members injected by JS -->
                 </ul>
-                <form id="add-member-form" class="add-inline-form">
-                    <input type="text" id="new-member-name" placeholder="Add a new member..." required autocomplete="off">
-                    <button type="submit" class="btn-icon"><i class="fa-solid fa-plus"></i></button>
+                <form id="add-member-form" class="add-member-form">
+                    <div class="input-with-action">
+                        <i class="fa-solid fa-user-plus input-icon"></i>
+                        <input type="text" id="new-member-name" placeholder="Add member name..." required autocomplete="off">
+                        <button type="submit" class="btn-submit-addon" title="Add Member">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
                 </form>
             </div>
             
-            <div class="tech-stack-badge">
-                <p>Neev AI Internship Project</p>
-                <div class="sidebar-actions" style="margin-top: 1rem;">
-                    <button class="btn-icon" id="btn-theme-toggle" title="Toggle Light/Dark Theme"><i class="fa-solid fa-moon"></i></button>
-                    <button class="btn-icon" id="btn-reset-group" title="Reset Entire Group" style="color:var(--danger-color);"><i class="fa-solid fa-trash-can"></i></button>
+            <!-- Sidebar Footer / Tech & Controls -->
+            <div class="sidebar-footer">
+                <div class="currency-picker-wrap">
+                    <label for="global-currency-select"><i class="fa-solid fa-coins"></i> Currency</label>
+                    <select id="global-currency-select" class="currency-select">
+                        <option value="INR">₹ INR (Indian Rupee)</option>
+                        <option value="USD">$ USD (US Dollar)</option>
+                        <option value="EUR">€ EUR (Euro)</option>
+                        <option value="GBP">£ GBP (British Pound)</option>
+                        <option value="AED">د.إ AED (UAE Dirham)</option>
+                        <option value="JPY">¥ JPY (Japanese Yen)</option>
+                    </select>
+                </div>
+
+                <div class="sidebar-controls">
+                    <button class="btn-ctrl" id="btn-theme-toggle" title="Toggle Theme">
+                        <i class="fa-solid fa-sun"></i>
+                        <span class="btn-ctrl-text">Theme</span>
+                    </button>
+                    <button class="btn-ctrl" id="btn-export-hub" title="Export & Share">
+                        <i class="fa-solid fa-share-nodes"></i>
+                        <span class="btn-ctrl-text">Share</span>
+                    </button>
+                    <button class="btn-ctrl btn-danger-ctrl" id="btn-delete-active-group" title="Delete Active Group">
+                        <i class="fa-solid fa-trash"></i>
+                        <span class="btn-ctrl-text">Delete</span>
+                    </button>
                 </div>
             </div>
         </aside>
 
-        <!-- Main Content -->
+        <!-- Main Workspace -->
         <main class="main-content">
-            <header class="hero-section">
-                <!-- Mobile top nav row -->
-                <div class="mobile-top-bar">
-                    <h1 class="brand-name font-outfit">Split_wise.</h1>
-                    <div style="display:flex; gap:0.5rem;">
-                        <button class="btn-icon circle-icon" id="btn-export-csv" title="Export to CSV"><i class="fa-solid fa-file-download"></i></button>
-                        <button class="btn-icon circle-icon" id="btn-theme-toggle-mobile" title="Toggle Theme"><i class="fa-solid fa-moon"></i></button>
+            <!-- Top Navigation Bar -->
+            <header class="top-nav-bar">
+                <div class="nav-left">
+                    <button class="btn-icon mobile-menu-btn" id="btn-open-sidebar" aria-label="Open Navigation">
+                        <i class="fa-solid fa-bars-staggered"></i>
+                    </button>
+                    <div class="nav-workspace-info">
+                        <span class="workspace-badge"><i class="fa-solid fa-circle-dot live-dot"></i> Active Workspace</span>
+                        <h2 class="workspace-title" id="display-workspace-title">Weekend Getaway</h2>
                     </div>
                 </div>
 
-                <div class="hero-card">
-                    <div class="hero-gradient">
-                        <p class="hero-label">Total Balance</p>
-                        <div style="display:flex; align-items:center; gap: 0.5rem;">
-                            <h2 class="hero-amount"><span class="currency-sym">₹</span><span id="total-expense">0.00</span></h2>
-                            <span class="hero-pill">6.5%</span>
-                        </div>
-                    </div>
-                    <div class="hero-bottom">
-                        <button id="btn-open-expense-modal" class="btn-add-expense">+ ADD EXPENSE</button>
-                    </div>
-                </div>
-                
-                <div class="hero-substats">
-                    <div class="mini-stat">
-                        <div class="mini-icon-wrapper">
-                            <div class="mini-circle c-dark"></div>
-                            <div class="mini-circle c-teal"><i class="fa-solid fa-dollar-sign"></i></div>
-                        </div>
-                        <p class="mini-label">ACTIVE DEBTS</p>
-                        <p class="mini-subtext">Amount to settle</p>
-                        <div class="mini-val-pill" id="total-debts-val">₹0.00</div>
-                    </div>
-                    
-                    <div class="mini-stat">
-                        <div class="mini-icon-wrapper">
-                            <div class="mini-circle c-dark"></div>
-                            <div class="mini-circle c-yellow"><i class="fa-solid fa-dollar-sign"></i></div>
-                        </div>
-                        <p class="mini-label">SETTLED UP</p>
-                        <p class="mini-subtext">Cleared transactions</p>
-                        <div class="mini-val-pill" id="cleared-debts-val">₹0.00</div>
-                    </div>
+                <div class="nav-right">
+                    <button class="btn-nav-action" id="btn-scan-receipt-top" title="AI Receipt Scanner">
+                        <i class="fa-solid fa-camera-viewfinder"></i>
+                        <span>Scan Receipt</span>
+                    </button>
+                    <button class="btn-nav-action btn-nav-share" id="btn-share-top" title="Share & Summary">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        <span class="desktop-only">Export</span>
+                    </button>
+                    <button class="btn-icon circle-icon" id="btn-theme-toggle-mobile" title="Toggle Theme">
+                        <i class="fa-solid fa-sun"></i>
+                    </button>
                 </div>
             </header>
 
-            <!-- AI Smart Chat Input -->
-            <div class="ai-chat-bar">
-                <form id="ai-chat-form" style="display:flex; width: 100%; position:relative;">
-                    <i class="fa-solid fa-sparkles ai-chat-icon"></i>
-                    <input type="text" id="ai-chat-input" placeholder='Ask AI: "Alice paid ₹1500 for a taxi for Bob and Charlie"' autocomplete="off" required>
-                    <button type="submit" id="ai-chat-submit" class="btn-primary" style="position:absolute; right:5px; top:5px; bottom:5px; margin:0; border-radius:var(--radius-sm)"><i class="fa-solid fa-paper-plane"></i></button>
-                </form>
-            </div>
+            <!-- Hero Futuristic Finance HUD -->
+            <section class="hero-hud">
+                <div class="hud-main-card">
+                    <div class="hud-mesh-bg"></div>
+                    <div class="hud-inner">
+                        <div class="hud-top">
+                            <div>
+                                <span class="hud-subtitle">TOTAL SPENT ACROSS GROUP</span>
+                                <div class="hud-amount-row">
+                                    <span class="currency-symbol" id="hero-currency-symbol">₹</span>
+                                    <h1 class="hud-amount" id="total-expense">0.00</h1>
+                                </div>
+                            </div>
+                            <div class="hud-badge-group">
+                                <span class="hud-pill" id="hero-per-person-pill"><i class="fa-solid fa-users"></i> ₹0 / person</span>
+                                <span class="hud-pill-active" id="hero-status-pill"><i class="fa-solid fa-chart-line"></i> Active Ledger</span>
+                            </div>
+                        </div>
 
-            <div class="content-grid">
-                <!-- Transactions List -->
-                <section class="card expenses-card">
-                    <div class="card-header">
-                        <h2>Recent Expenses</h2>
+                        <div class="hud-actions-row">
+                            <button id="btn-open-expense-modal" class="btn-primary-glow">
+                                <i class="fa-solid fa-plus"></i>
+                                <span>ADD EXPENSE</span>
+                            </button>
+                            <button id="btn-settle-all-modal" class="btn-secondary-glow">
+                                <i class="fa-solid fa-handshake"></i>
+                                <span>SETTLE UP</span>
+                            </button>
+                        </div>
                     </div>
-                    <div class="expenses-list" id="expenses-list">
+                </div>
+
+                <!-- Sub-HUD Metrics Cards -->
+                <div class="hud-metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <div class="metric-icon-box icon-red">
+                                <i class="fa-solid fa-arrow-trend-down"></i>
+                            </div>
+                            <span class="metric-label">ACTIVE UNSETTLED DEBT</span>
+                        </div>
+                        <div class="metric-value-row">
+                            <span class="metric-value" id="total-debts-val">₹0.00</span>
+                        </div>
+                        <div class="metric-footer">
+                            <span id="active-debts-count">0 pending settlements</span>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <div class="metric-icon-box icon-emerald">
+                                <i class="fa-solid fa-check-double"></i>
+                            </div>
+                            <span class="metric-label">TOTAL SETTLED CLEARED</span>
+                        </div>
+                        <div class="metric-value-row">
+                            <span class="metric-value" id="cleared-debts-val">₹0.00</span>
+                        </div>
+                        <div class="metric-footer">
+                            <span id="settled-status-text">Fully optimized greedy routes</span>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <div class="metric-icon-box icon-purple">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            </div>
+                            <span class="metric-label">AI TOP SPEND CATEGORY</span>
+                        </div>
+                        <div class="metric-value-row">
+                            <span class="metric-value" id="top-category-val">None</span>
+                        </div>
+                        <div class="metric-footer">
+                            <span id="top-category-percent">0% of total expenditure</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AI Smart NLP Prompt Engine -->
+            <section class="ai-prompt-section">
+                <div class="ai-chat-card">
+                    <form id="ai-chat-form" class="ai-chat-form">
+                        <div class="ai-input-wrapper">
+                            <div class="ai-sparkle-glow">
+                                <i class="fa-solid fa-sparkles"></i>
+                            </div>
+                            <input 
+                                type="text" 
+                                id="ai-chat-input" 
+                                placeholder='Type in plain English: "Alice paid ₹1500 for taxi split with Bob" or "Pizza $45 paid by Charlie"' 
+                                autocomplete="off" 
+                                required
+                            >
+                            <button type="submit" id="ai-chat-submit" class="ai-submit-btn" title="AI Parse & Add">
+                                <span>Generate</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </form>
+                    <div class="ai-quick-prompts">
+                        <span class="prompt-hint"><i class="fa-solid fa-lightbulb"></i> Try clicking:</span>
+                        <button type="button" class="prompt-chip" data-prompt="Alice paid 1200 for Dinner split with Bob and Charlie">"Alice paid 1200 for Dinner"</button>
+                        <button type="button" class="prompt-chip" data-prompt="Bob paid 450 for Uber taxi for Alice">"Bob paid 450 for Uber"</button>
+                        <button type="button" class="prompt-chip" data-prompt="Charlie paid 3000 for Airbnb stay">"Charlie paid 3000 for Stay"</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Main Content Grid -->
+            <div class="content-grid">
+                <!-- Left Column: Transactions & Filter Bar -->
+                <section class="card-panel expenses-panel">
+                    <div class="panel-header">
+                        <div class="panel-title-wrap">
+                            <i class="fa-solid fa-receipt text-accent"></i>
+                            <h2>Recent Expenses</h2>
+                            <span class="count-pill" id="expense-count-pill">0</span>
+                        </div>
+                        
+                        <!-- Search & Filter Controls -->
+                        <div class="expenses-filter-bar">
+                            <div class="search-input-wrap">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <input type="text" id="expense-search-input" placeholder="Search by item, person, or tag...">
+                                <button type="button" id="btn-clear-search" class="btn-clear-search" style="display:none;">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category Filter Chips -->
+                    <div class="category-filter-chips custom-scrollbar" id="category-filter-chips">
+                        <button class="chip-filter active" data-category="ALL">All</button>
+                        <button class="chip-filter" data-category="Food & Dining"><i class="fa-solid fa-utensils"></i> Food</button>
+                        <button class="chip-filter" data-category="Transportation"><i class="fa-solid fa-car"></i> Travel</button>
+                        <button class="chip-filter" data-category="Accommodation"><i class="fa-solid fa-bed"></i> Stay</button>
+                        <button class="chip-filter" data-category="Entertainment"><i class="fa-solid fa-gamepad"></i> Fun</button>
+                        <button class="chip-filter" data-category="Shopping"><i class="fa-solid fa-bag-shopping"></i> Shopping</button>
+                        <button class="chip-filter" data-category="Settlement"><i class="fa-solid fa-handshake"></i> Settled</button>
+                    </div>
+
+                    <!-- Filter Status Indicator -->
+                    <div id="active-filter-alert" class="active-filter-banner" style="display:none;">
+                        <span><i class="fa-solid fa-filter"></i> Showing filtered results</span>
+                        <button id="btn-reset-filters" class="btn-link">Reset Filters</button>
+                    </div>
+
+                    <div class="expenses-list custom-scrollbar" id="expenses-list">
                         <!-- Expenses injected by JS -->
-                        <div class="empty-state">No expenses yet. Start by adding one!</div>
+                        <div class="empty-state">
+                            <div class="empty-icon-wrap"><i class="fa-solid fa-wallet"></i></div>
+                            <h3>No transactions logged yet</h3>
+                            <p>Add your first expense or use the AI bar above to split expenses automatically!</p>
+                            <button class="btn-primary-sm" onclick="document.getElementById('btn-open-expense-modal').click()">+ Add First Expense</button>
+                        </div>
                     </div>
                 </section>
 
-                <!-- Right Column: Balances & Insights -->
+                <!-- Right Column: Settle Engine & AI Insights -->
                 <div class="right-column">
-                    <!-- Settlements -->
-                    <section class="card settlements-card">
-                        <div class="card-header">
-                            <h2>Who Owes Whom</h2>
-                            <i class="fa-solid fa-handshake-angle text-accent"></i>
+                    <!-- Debt Simplification / Who Owes Whom -->
+                    <section class="card-panel settlements-panel">
+                        <div class="panel-header">
+                            <div class="panel-title-wrap">
+                                <i class="fa-solid fa-scale-balanced text-accent"></i>
+                                <h2>Who Owes Whom</h2>
+                            </div>
+                            <span class="status-indicator-tag"><i class="fa-solid fa-bolt"></i> Greedy Min-Route</span>
                         </div>
-                        <div class="settlements-list" id="settlements-list">
+                        <div class="settlements-list custom-scrollbar" id="settlements-list">
                             <!-- Settlements injected by JS -->
                         </div>
                     </section>
 
-                    <!-- AI Insights -->
-                    <section class="card insights-card">
-                        <div class="card-header">
-                            <h2>AI Insights</h2>
-                            <i class="fa-solid fa-wand-magic-sparkles ai-icon"></i>
-                        </div>
-                        <div class="insights-content" id="analytics-content">
-                            <!-- AI Analytics injected by JS -->
-                            <p class="empty-text">Add some expenses to generate AI insights.</p>
+                    <!-- AI Spending Analytics & Breakdown -->
+                    <section class="card-panel analytics-panel">
+                        <div class="panel-header">
+                            <div class="panel-title-wrap">
+                                <i class="fa-solid fa-chart-pie text-ai"></i>
+                                <h2>AI Insights & Breakdown</h2>
+                            </div>
                         </div>
                         
-                        <div class="chart-container" id="category-chart-container" style="display: none;">
-                             <div class="category-bars" id="category-bars"></div>
+                        <div class="insights-summary-box" id="analytics-content">
+                            <!-- AI Analytics injected by JS -->
+                        </div>
+
+                        <!-- Visual Category Bars Breakdown -->
+                        <div class="category-breakdown-section" id="category-chart-container">
+                            <h4 class="subpanel-title"><i class="fa-solid fa-chart-simple"></i> Category Distribution</h4>
+                            <div class="category-bars-list" id="category-bars"></div>
+                        </div>
+
+                        <!-- Member Spending Contribution Share -->
+                        <div class="member-share-section" id="member-share-container">
+                            <h4 class="subpanel-title"><i class="fa-solid fa-chart-column"></i> Member Contributions</h4>
+                            <div class="member-share-bars" id="member-share-bars"></div>
                         </div>
                     </section>
                 </div>
@@ -163,61 +352,359 @@
         </main>
     </div>
 
-    <!-- Add Expense Modal -->
+    <!-- Add/Edit Expense Modal -->
     <div class="modal-overlay" id="expense-modal">
-        <div class="modal card">
-            <button class="modal-close" id="btn-close-expense-modal"><i class="fa-solid fa-xmark"></i></button>
-            <h2 class="modal-title">Add New Expense</h2>
+        <div class="modal-card">
+            <button class="modal-close-btn" id="btn-close-expense-modal" aria-label="Close modal">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
             
-            <button type="button" id="btn-scan-receipt" class="btn-scan-receipt">
-                <i class="fa-solid fa-camera"></i> Scan Receipt with AI
+            <div class="modal-header">
+                <div class="modal-icon-badge">
+                    <i class="fa-solid fa-receipt"></i>
+                </div>
+                <div>
+                    <h2 class="modal-title" id="expense-modal-title">Add New Expense</h2>
+                    <p class="modal-subtitle">Record a bill and allocate split proportions</p>
+                </div>
+            </div>
+
+            <!-- AI OCR Receipt Trigger Inside Modal -->
+            <button type="button" id="btn-scan-receipt" class="btn-scan-receipt-banner">
+                <div class="scan-banner-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                <div class="scan-banner-text">
+                    <strong>Auto-Scan Receipt with AI OCR</strong>
+                    <span>Extract merchant, amount & split automatically</span>
+                </div>
+                <i class="fa-solid fa-angle-right scan-arrow"></i>
             </button>
             
             <form id="add-expense-form">
                 <div class="form-group">
-                    <label for="expense-desc">What was it for?</label>
-                    <input type="text" id="expense-desc" placeholder="e.g. Dinner at Mario's" required autocomplete="off">
+                    <label for="expense-desc"><i class="fa-solid fa-tag"></i> What was this expense for?</label>
+                    <input type="text" id="expense-desc" placeholder="e.g. Sushi Dinner, Taxi to Airport, Groceries" required autocomplete="off">
                 </div>
                 
-                <div class="form-group">
-                    <label for="expense-amount">Amount & Currency</label>
-                    <div style="display:flex; gap: 0.5rem;">
-                        <input type="number" id="expense-amount" placeholder="0.00" step="0.01" min="0.01" required style="flex:2">
-                        <select id="expense-currency" style="flex:1">
+                <div class="form-row-2">
+                    <div class="form-group flex-2">
+                        <label for="expense-amount"><i class="fa-solid fa-money-bill-wave"></i> Total Amount</label>
+                        <input type="number" id="expense-amount" placeholder="0.00" step="0.01" min="0.01" required>
+                    </div>
+                    
+                    <div class="form-group flex-1">
+                        <label for="expense-currency"><i class="fa-solid fa-coins"></i> Currency</label>
+                        <select id="expense-currency">
                             <option value="INR">₹ INR</option>
                             <option value="USD">$ USD</option>
                             <option value="EUR">€ EUR</option>
                             <option value="GBP">£ GBP</option>
+                            <option value="AED">د.إ AED</option>
+                            <option value="JPY">¥ JPY</option>
                         </select>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="expense-payer">Who paid?</label>
-                    <select id="expense-payer" required>
-                        <!-- Options injected by JS -->
-                    </select>
-                </div>
-
-                <div class="form-group split-group">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 0.5rem;">
-                        <label>Split amongst</label>
-                        <select id="split-method-select" style="font-size: 0.8rem; padding: 2px 8px; border-radius: var(--radius-sm);">
-                            <option value="equally">Equally</option>
-                            <option value="exact">Exact Amounts</option>
-                            <option value="percentage">Percentages (%)</option>
-                            <option value="shares">Shares</option>
+                <div class="form-row-2">
+                    <div class="form-group flex-1">
+                        <label for="expense-payer"><i class="fa-solid fa-user-check"></i> Paid By</label>
+                        <select id="expense-payer" required>
+                            <!-- Options injected by JS -->
                         </select>
                     </div>
-                    <div class="split-options" id="split-options">
-                        <!-- Checkboxes or Inputs injected by JS -->
+
+                    <div class="form-group flex-1">
+                        <label for="expense-category-select"><i class="fa-solid fa-shapes"></i> Category</label>
+                        <select id="expense-category-select">
+                            <option value="Auto">✨ Auto Detect (AI)</option>
+                            <option value="Food & Dining">🍔 Food & Dining</option>
+                            <option value="Transportation">🚕 Transportation</option>
+                            <option value="Accommodation">🏨 Accommodation</option>
+                            <option value="Entertainment">🎟️ Entertainment</option>
+                            <option value="Shopping">🛍️ Shopping</option>
+                            <option value="Other">📄 Other</option>
+                        </select>
                     </div>
                 </div>
 
-                <button type="submit" class="btn-primary btn-block">Add Expense</button>
+                <div class="form-group split-container-box">
+                    <div class="split-header-row">
+                        <label class="split-label"><i class="fa-solid fa-pie-chart"></i> Split Proportion</label>
+                        <div class="split-selector-pill">
+                            <select id="split-method-select">
+                                <option value="equally">Split Equally (=)</option>
+                                <option value="exact">Exact Amounts (₹)</option>
+                                <option value="percentage">Percentages (%)</option>
+                                <option value="shares">Ratio Shares (x)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="split-instruction" id="split-instruction-note">
+                        Select members participating in this expense:
+                    </div>
+
+                    <div class="split-options custom-scrollbar" id="split-options">
+                        <!-- Checkboxes or dynamic custom inputs injected by JS -->
+                    </div>
+                </div>
+
+                <div class="modal-footer-actions">
+                    <button type="button" class="btn-cancel" id="btn-cancel-expense">Cancel</button>
+                    <button type="submit" class="btn-primary-modal" id="btn-submit-expense-form">Add Expense</button>
+                </div>
             </form>
         </div>
     </div>
+
+    <!-- AI Receipt OCR Scanner Modal -->
+    <div class="modal-overlay" id="receipt-scanner-modal">
+        <div class="modal-card receipt-modal">
+            <button class="modal-close-btn" id="btn-close-scanner-modal" aria-label="Close modal">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="modal-header">
+                <div class="modal-icon-badge icon-scanner">
+                    <i class="fa-solid fa-camera"></i>
+                </div>
+                <div>
+                    <h2 class="modal-title">AI Receipt OCR Scanner</h2>
+                    <p class="modal-subtitle">Upload or test instant AI extraction on bills</p>
+                </div>
+            </div>
+
+            <div class="receipt-scanner-body">
+                <!-- Dropzone / Camera interface -->
+                <div class="scanner-dropzone" id="scanner-dropzone">
+                    <input type="file" id="receipt-file-input" accept="image/*" style="display:none;">
+                    <div class="dropzone-content" id="dropzone-prompt">
+                        <div class="scanner-laser-line" id="scanner-laser" style="display:none;"></div>
+                        <i class="fa-solid fa-cloud-arrow-up drop-icon"></i>
+                        <h4>Upload or drop bill receipt image</h4>
+                        <p>Supports PNG, JPG, WEBP or capture via mobile camera</p>
+                        <button type="button" class="btn-upload-file" onclick="document.getElementById('receipt-file-input').click()">
+                            <i class="fa-solid fa-folder-open"></i> Browse File
+                        </button>
+                    </div>
+
+                    <!-- Scan Preview container -->
+                    <div class="scan-preview-wrap" id="scan-preview-wrap" style="display:none;">
+                        <img id="scan-preview-img" src="" alt="Receipt Preview">
+                        <div class="laser-scanner-active" id="active-laser-beam"></div>
+                    </div>
+                </div>
+
+                <!-- Fast Demo Sample Receipts for Instant Testing -->
+                <div class="sample-receipts-bar">
+                    <span class="sample-label"><i class="fa-solid fa-flask"></i> Try Instant Sample Receipts:</span>
+                    <div class="sample-chips-row">
+                        <button type="button" class="btn-sample-chip" data-sample="dinner">
+                            <i class="fa-solid fa-burger"></i> Mario's Bistro (₹2,450)
+                        </button>
+                        <button type="button" class="btn-sample-chip" data-sample="uber">
+                            <i class="fa-solid fa-taxi"></i> Uber Airport Cab (₹680)
+                        </button>
+                        <button type="button" class="btn-sample-chip" data-sample="resort">
+                            <i class="fa-solid fa-hotel"></i> Palm Grove Resort (₹8,200)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Extraction Results Preview Box -->
+                <div class="extracted-data-card" id="extracted-data-card" style="display:none;">
+                    <div class="extracted-header">
+                        <span><i class="fa-solid fa-circle-check text-success"></i> AI Extraction Succeeded</span>
+                        <span class="confidence-badge">99.4% Confidence</span>
+                    </div>
+                    <div class="extracted-grid">
+                        <div class="ext-item">
+                            <span class="ext-lbl">Merchant / Title</span>
+                            <strong class="ext-val" id="ext-merchant">-</strong>
+                        </div>
+                        <div class="ext-item">
+                            <span class="ext-lbl">Detected Total</span>
+                            <strong class="ext-val text-accent" id="ext-amount">-</strong>
+                        </div>
+                        <div class="ext-item">
+                            <span class="ext-lbl">Category</span>
+                            <strong class="ext-val" id="ext-category">-</strong>
+                        </div>
+                        <div class="ext-item">
+                            <span class="ext-lbl">Date</span>
+                            <strong class="ext-val" id="ext-date">-</strong>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-apply-extraction" id="btn-apply-extracted-data">
+                        <i class="fa-solid fa-file-circle-check"></i> Fill Into Add Expense Form
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settle Up / Settlement Action Modal -->
+    <div class="modal-overlay" id="settle-modal">
+        <div class="modal-card settle-modal-card">
+            <button class="modal-close-btn" id="btn-close-settle-modal" aria-label="Close modal">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="modal-header">
+                <div class="modal-icon-badge icon-settle">
+                    <i class="fa-solid fa-handshake"></i>
+                </div>
+                <div>
+                    <h2 class="modal-title">Settle Balance</h2>
+                    <p class="modal-subtitle">Clear dues & record payment transaction</p>
+                </div>
+            </div>
+
+            <div class="settle-card-details">
+                <div class="settle-transfer-visual">
+                    <div class="party-node from-node">
+                        <img id="settle-from-avatar" class="party-avatar" src="" alt="From">
+                        <span id="settle-from-name" class="party-name">Alice</span>
+                        <span class="party-role">Debtor</span>
+                    </div>
+                    <div class="transfer-arrow-hud">
+                        <span class="transfer-amount" id="settle-modal-amount">₹0.00</span>
+                        <div class="animated-dots-line">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+                    <div class="party-node to-node">
+                        <img id="settle-to-avatar" class="party-avatar" src="" alt="To">
+                        <span id="settle-to-name" class="party-name">Bob</span>
+                        <span class="party-role">Creditor</span>
+                    </div>
+                </div>
+
+                <!-- UPI / Payment QR Code Simulation Box -->
+                <div class="payment-qr-container">
+                    <div class="qr-box">
+                        <!-- Dynamic SVG QR Code render -->
+                        <div id="settle-qr-code" class="qr-svg-wrapper"></div>
+                    </div>
+                    <div class="qr-instructions">
+                        <h4><i class="fa-solid fa-qrcode text-accent"></i> Instant Pay with Any UPI App</h4>
+                        <p>Scan with GPay, PhonePe, Paytm, or your banking app.</p>
+                        <div class="upi-id-badge">
+                            <span id="upi-display-id">splitzai.settle@okhdfcbank</span>
+                            <button type="button" class="btn-copy-id" id="btn-copy-upi" title="Copy UPI ID">
+                                <i class="fa-solid fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settle-modal-actions">
+                    <button type="button" class="btn-cancel" id="btn-cancel-settle">Dismiss</button>
+                    <button type="button" class="btn-settle-confirm" id="btn-confirm-settle-action">
+                        <i class="fa-solid fa-circle-check"></i> Mark As Settled & Paid
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Export & Share Hub Modal -->
+    <div class="modal-overlay" id="export-modal">
+        <div class="modal-card export-modal-card">
+            <button class="modal-close-btn" id="btn-close-export-modal" aria-label="Close modal">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="modal-header">
+                <div class="modal-icon-badge icon-export">
+                    <i class="fa-solid fa-share-nodes"></i>
+                </div>
+                <div>
+                    <h2 class="modal-title">Export & Share Workspace</h2>
+                    <p class="modal-subtitle">Backup data or share settlement reports with members</p>
+                </div>
+            </div>
+
+            <div class="export-options-grid">
+                <!-- WhatsApp / Messenger Formatted Summary -->
+                <div class="export-tile" id="tile-copy-whatsapp">
+                    <div class="tile-icon icon-wa"><i class="fa-brands fa-whatsapp"></i></div>
+                    <div class="tile-text">
+                        <h4>Copy Group Summary</h4>
+                        <p>Clean formatted text report for WhatsApp or Telegram</p>
+                    </div>
+                    <button class="btn-tile-action" id="btn-copy-summary-text">
+                        <i class="fa-solid fa-copy"></i> Copy Text
+                    </button>
+                </div>
+
+                <!-- CSV Spreadsheet Export -->
+                <div class="export-tile" id="tile-download-csv">
+                    <div class="tile-icon icon-csv"><i class="fa-solid fa-file-csv"></i></div>
+                    <div class="tile-text">
+                        <h4>Export to CSV</h4>
+                        <p>Excel-ready spreadsheet with all split transactions</p>
+                    </div>
+                    <button class="btn-tile-action" id="btn-download-csv">
+                        <i class="fa-solid fa-download"></i> Download CSV
+                    </button>
+                </div>
+
+                <!-- JSON Backup -->
+                <div class="export-tile" id="tile-backup-json">
+                    <div class="tile-icon icon-json"><i class="fa-solid fa-file-code"></i></div>
+                    <div class="tile-text">
+                        <h4>JSON Ecosystem Backup</h4>
+                        <p>Complete export of all groups and members to file</p>
+                    </div>
+                    <button class="btn-tile-action" id="btn-export-json">
+                        <i class="fa-solid fa-file-export"></i> Backup JSON
+                    </button>
+                </div>
+
+                <!-- Restore Backup -->
+                <div class="export-tile" id="tile-restore-json">
+                    <div class="tile-icon icon-restore"><i class="fa-solid fa-file-import"></i></div>
+                    <div class="tile-text">
+                        <h4>Restore From Backup</h4>
+                        <p>Import a previously saved SplitzAI JSON file</p>
+                    </div>
+                    <input type="file" id="import-json-file" accept=".json" style="display:none;">
+                    <button class="btn-tile-action" onclick="document.getElementById('import-json-file').click()">
+                        <i class="fa-solid fa-upload"></i> Restore File
+                    </button>
+                </div>
+            </div>
+
+            <!-- Preview of shareable summary -->
+            <div class="summary-preview-wrap">
+                <div class="summary-preview-header">
+                    <span><i class="fa-solid fa-align-left"></i> Summary Report Preview:</span>
+                </div>
+                <textarea id="summary-preview-text" class="summary-textarea" readonly rows="5"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Confirmation Modal (Replaces browser confirm) -->
+    <div class="modal-overlay" id="confirm-dialog-modal">
+        <div class="modal-card confirm-modal-card">
+            <div class="confirm-icon" id="confirm-modal-icon">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h3 class="confirm-title" id="confirm-dialog-title">Are you sure?</h3>
+            <p class="confirm-msg" id="confirm-dialog-message">This action cannot be undone.</p>
+            <div class="confirm-actions">
+                <button type="button" class="btn-cancel" id="btn-confirm-cancel">Cancel</button>
+                <button type="button" class="btn-confirm-danger" id="btn-confirm-accept">Proceed</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Canvas for Celebration / Confetti -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toast-container"></div>
 
     <script src="app.js"></script>
 </body>
